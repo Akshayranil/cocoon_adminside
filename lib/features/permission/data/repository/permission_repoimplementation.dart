@@ -12,4 +12,9 @@ class HotelRepositoryImpl implements HotelRepository {
     final models = await remoteDataSource.fetchHotels();
     return models.map((model) => model.toEntity()).toList();
   }
+
+    @override
+  Future<void> updateHotelStatus(String hotelId, String status) {
+    return remoteDataSource.updateHotelStatus(hotelId, status);
+  }
 }

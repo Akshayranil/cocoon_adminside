@@ -14,3 +14,13 @@ class GetHotelsUseCase {
     return hotels;
   }
 }
+
+class UpdateHotelStatusUseCase {
+  final HotelRepository repository;
+
+  UpdateHotelStatusUseCase(this.repository);
+
+  Future<void> call(String hotelId, String status) {
+    return repository.updateHotelStatus(hotelId, status);
+  }
+}

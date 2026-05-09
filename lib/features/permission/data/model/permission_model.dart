@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cocoon_admin/features/permission/domain/entity/permission_entity.dart';
 
 class HotelModel {
+  final String id;
   final String type;
   final String name;
   final String booking;
@@ -18,6 +19,7 @@ class HotelModel {
   final DateTime? createdAt;
   final List<String> hotelimages;
   HotelModel({
+    required this.id,
     required this.type,
     required this.name,
     required this.booking,
@@ -38,6 +40,7 @@ class HotelModel {
   factory HotelModel.fromFirestore(DocumentSnapshot doc) {
     final data = doc.data() as Map<String, dynamic>;
     return HotelModel(
+      id: doc.id,
       type: data['type'] ?? '',
       name: data['name'] ?? '',
       booking: data['booking'] ?? '',
@@ -57,6 +60,7 @@ class HotelModel {
 
   HotelEntity toEntity() {
     return HotelEntity(
+      id: id,
       type: type,
       name: name,
       booking: booking,

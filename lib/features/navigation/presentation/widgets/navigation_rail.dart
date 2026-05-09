@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class NavigationRailWidget extends StatelessWidget {
-  const NavigationRailWidget({super.key});
+  const  NavigationRailWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -29,10 +29,12 @@ class NavigationRailWidget extends StatelessWidget {
       icon: Icon(Icons.lock_outlined),
       label: Text('Permission'),
     ),
-    NavigationRailDestination(
-      icon: Icon(Icons.bar_chart_outlined),
-      label: Text('Reports'),
-    ),
+    // NavigationRailDestination(
+    //   icon: Icon(Icons.bar_chart_outlined),
+    //   label: Text('Reports'),
+    // ),
+    NavigationRailDestination(icon: Icon(Icons.room_preferences),
+     label: Text('Aminities')),
     NavigationRailDestination(
       icon: Icon(Icons.settings_outlined),
       label: Text('Settings'),

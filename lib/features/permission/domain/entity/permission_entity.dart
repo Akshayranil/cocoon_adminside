@@ -1,5 +1,6 @@
 // domain/entities/hotel_entity.dart
 class HotelEntity {
+  final String id;
   final String type;
   final String name;
   final String booking;
@@ -17,6 +18,7 @@ class HotelEntity {
   final List<String> hotelimages;
 
   HotelEntity({
+    required this.id,
     required this.type,
     required this.name,
     required this.booking,
@@ -33,4 +35,6 @@ class HotelEntity {
     this.createdAt,
     required this.hotelimages,
   });
+
+  
 }

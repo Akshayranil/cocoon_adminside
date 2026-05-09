@@ -8,7 +8,10 @@ part 'permission_state.dart';
 
 class PermissionBloc extends Bloc<PermissionEvent, PermissionState> {
   final GetHotelsUseCase getHotelsUseCase;
-  PermissionBloc(this.getHotelsUseCase) : super(PermissionInitial()) {
+  final UpdateHotelStatusUseCase updateHotelStatusUseCase; // ✅ NEW
+
+  PermissionBloc(this.getHotelsUseCase, this.updateHotelStatusUseCase)
+      : super(PermissionInitial()) {
     on<LoadHotels>((event, emit) async {
       emit(PermissionLoading());
       try {
@@ -18,5 +21,19 @@ class PermissionBloc extends Bloc<PermissionEvent, PermissionState> {
         emit(PermissionError(e.toString()));
       }
     });
+
+    // ✅ NEW Event Handling
+    on<UpdateHotelStatus>((event, emit) async {
+      try {
+        await updateHotelStatusUseCase(event.hotelId, event.status);
+
+        // refresh list
+        final hotels = await getHotelsUseCase();
+        emit(PermissionLoaded(hotels));
+      } catch (e) {
+        emit(PermissionError(e.toString()));
+      }
+    });
   }
 }
+

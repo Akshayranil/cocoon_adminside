@@ -10,4 +10,10 @@ class HotelRemoteDataSource {
     final snapshot = await firestore.collection('hotelregistration').get();
     return snapshot.docs.map((doc) => HotelModel.fromFirestore(doc)).toList();
   }
+
+  Future<void> updateHotelStatus(String hotelId, String status) async {
+    await firestore.collection('hotelregistration').doc(hotelId).update({
+      'status': status,
+    });
+  }
 }
