@@ -1,41 +1,41 @@
+import 'package:cocoon_admin/core/theme/colors.dart';
 import 'package:cocoon_admin/features/navigation/presentation/widgets/navigation_rail.dart';
 import 'package:flutter/material.dart';
 
 class ResponsiveLayout extends StatelessWidget {
-  const ResponsiveLayout({super.key});
+  final Widget child;
+
+  const ResponsiveLayout({super.key, required this.child});
 
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
-        
-        // 🔥 Mobile Screen
+
+        // 📱 MOBILE
         if (constraints.maxWidth < 600) {
           return Scaffold(
             appBar: AppBar(
+              backgroundColor: AppColor.primary,
               title: const Text("Cocoon Admin"),
             ),
             drawer: const Drawer(
-              child: NavigationRailWidget(), // reuse your widget
+              child: NavigationRailWidget(), // reuse menu
             ),
-            body: const Center(child: Text("Mobile View")),
+            body: child,
           );
         }
 
-        // 🔥 Tablet / Web Screen
-        else {
-          return Scaffold(
-            body: Row(
-              children: [
-                const NavigationRailWidget(), // your existing rail
-                const VerticalDivider(width: 1),
-                const Expanded(
-                  child: Center(child: Text("Desktop View")),
-                ),
-              ],
-            ),
-          );
-        }
+        // 💻 DESKTOP / TABLET
+        return Scaffold(
+          body: Row(
+            children: [
+              const NavigationRailWidget(),
+              const VerticalDivider(width: 1),
+              Expanded(child: child),
+            ],
+          ),
+        );
       },
     );
   }

@@ -15,7 +15,7 @@ Future<void> login(String email, String password) async {
   print("Email: '$cleanEmail'");
   print("Password: '$cleanPassword'");
 
-  if (cleanEmail == "admin@gmail.com" && cleanPassword == "1234") {
+  if (cleanEmail == "akshay@gmail.com" && cleanPassword == "akshay") {
     await local.saveLogin();
   } else {
     throw Exception("Invalid credentials");
