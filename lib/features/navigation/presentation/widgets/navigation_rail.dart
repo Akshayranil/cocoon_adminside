@@ -1,3 +1,4 @@
+import 'package:cocoon_admin/features/auth/presentation/ui/dialog_popup.dart';
 import 'package:cocoon_admin/features/navigation/presentation/bloc/cubit/navrail_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,8 +14,16 @@ class NavigationRailWidget extends StatelessWidget {
   extended: true,
   selectedIndex: selectedIndex,
   onDestinationSelected: (index) {
-    context.read<NavrailCubit>().updateIndex(index);
-  },
+
+  // 🔥 Logout is last index (5)
+  if (index == 5) {
+    showLogoutDialog(context);
+    return; // ❌ stop navigation
+  }
+
+  // ✅ Normal navigation
+  context.read<NavrailCubit>().updateIndex(index);
+},
   selectedIconTheme: const IconThemeData(color: Colors.black),
   unselectedIconTheme: const IconThemeData(color: Colors.black),
   selectedLabelTextStyle: const TextStyle(color: Colors.white),
@@ -46,6 +55,7 @@ class NavigationRailWidget extends StatelessWidget {
     NavigationRailDestination(
       icon: Icon(Icons.logout_outlined),
       label: Text('LogOut'),
+      
     ),
   ],
 )

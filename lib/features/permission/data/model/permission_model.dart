@@ -38,25 +38,32 @@ class HotelModel {
   });
 
   factory HotelModel.fromFirestore(DocumentSnapshot doc) {
-    final data = doc.data() as Map<String, dynamic>;
-    return HotelModel(
-      id: doc.id,
-      type: data['type'] ?? '',
-      name: data['name'] ?? '',
-      booking: data['booking'] ?? '',
-      phonenumber: data['phonenumber'] ?? '',
-      email: data['email'] ?? '',
-      facilities: List<String>.from(data['facilities'] ?? []),
-      pan: data['pan'],
-      gst: data['gst'],
-      propertyinformation: data['propertyinformation'],
-      isOwnedorLeased: data['isOwnedorLeased'],
-      haveRegistration: data['haveRegistration'],
-      document: data['document'],
-      status: data['status'],
-      hotelimages: List<String>.from(data['hotelimages']),
-    );
-  }
+  final data = doc.data() as Map<String, dynamic>;
+
+  return HotelModel(
+    id: doc.id,
+    type: data['type'] ?? '',
+    name: data['name'] ?? '',
+    booking: data['booking'] ?? '',
+    phonenumber: data['phonenumber'] ?? '',
+    email: data['email'] ?? '',
+    facilities: List<String>.from(data['facilities'] ?? []),
+
+    pan: data['pan'] ?? '',
+    gst: data['gst'] ?? '',
+    propertyinformation: data['propertyinformation'] ?? '',
+    isOwnedorLeased: data['isOwnedorLeased'] ?? '',
+    haveRegistration: data['haveRegistration'] ?? '',
+    document: data['document'] ?? '',
+    status: data['status'] ?? '',
+
+    hotelimages: List<String>.from(data['hotelimages'] ?? []),
+
+    createdAt: data['createdAt'] != null
+        ? (data['createdAt'] as Timestamp).toDate()
+        : null,
+  );
+}
 
   HotelEntity toEntity() {
     return HotelEntity(

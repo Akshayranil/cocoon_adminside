@@ -3,6 +3,12 @@ import 'package:cocoon_admin/features/aminities/data/datasource/aminities_data_s
 import 'package:cocoon_admin/features/aminities/data/repository/aminity_repository_implementation.dart';
 import 'package:cocoon_admin/features/aminities/domain/usecase/aminities_use_case.dart';
 import 'package:cocoon_admin/features/aminities/presentation/bloc/aminities/aminities_bloc.dart';
+import 'package:cocoon_admin/features/auth/data/datasource/auth_datasource.dart';
+import 'package:cocoon_admin/features/auth/data/repository/data_implementation.dart';
+import 'package:cocoon_admin/features/auth/domain/usecase/auth_usecase.dart';
+import 'package:cocoon_admin/features/auth/presentation/bloc/bloc/auth_bloc.dart';
+import 'package:cocoon_admin/features/auth/presentation/bloc/bloc/auth_event.dart';
+import 'package:cocoon_admin/features/auth/presentation/ui/login_screen.dart';
 import 'package:cocoon_admin/features/hotels/data/datasource/accepted_hotel_datasource.dart';
 import 'package:cocoon_admin/features/hotels/data/repository/accepted_repository_implementation.dart';
 import 'package:cocoon_admin/features/hotels/domain/usecase/accepted_hotel_usecase.dart';
@@ -45,6 +51,10 @@ void main() async {
     acceptedhoteldatasource,
   );
   final acceptedhotelusecase = AcceptedHotelUsecase(acceptedhotelrepository);
+
+  //auth
+  final local = AuthLocalDataSource();
+    final repo = AuthRepositoryImpl(local);
   runApp(
     MultiBlocProvider(
       providers: [
@@ -61,7 +71,9 @@ void main() async {
             deleteAminityUsecase,
           ),
         ),
-        BlocProvider(create: (_)=>AcceptedHotelBloc(acceptedhotelusecase)..add(LoadAcceptedHotels()))
+        BlocProvider(create: (_)=>AcceptedHotelBloc(acceptedhotelusecase)..add(LoadAcceptedHotels())),
+
+        BlocProvider(create: (_)=> AuthBloc(LoginUseCase(repo), LogoutUseCase(repo), CheckLoginUseCase(repo),)..add(CheckAuthEvent()))
       ],
       child: MyApp(),
     ),
@@ -73,6 +85,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(debugShowCheckedModeBanner: false, home: MainPage());
+    return MaterialApp(debugShowCheckedModeBanner: false, home: LoginScreen());
   }
 }

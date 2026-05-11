@@ -1,12 +1,12 @@
-import 'package:flutter/material.dart';
+// import 'package:flutter/material.dart';
 
-class LogoutScreen extends StatelessWidget {
-  const LogoutScreen({super.key});
+// class LogoutScreen extends StatelessWidget {
+//   const LogoutScreen({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(child: Text('Logout Screen'),),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       body: Center(child: Text('Logout Screen'),),
+//     );
+//   }
+// }
